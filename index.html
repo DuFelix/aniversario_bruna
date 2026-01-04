@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31 Anos da Bru! - Vai bru, bru!</title>
+    <!-- Importando Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração de Cores Personalizadas -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rosegold: {
+                            light: '#f2deda',   // Versão bem clara do #E0BFB8
+                            DEFAULT: '#E0BFB8', // A cor exata pedida
+                            dark: '#b58b83',    // Versão mais escura para texto/botoes
+                            text: '#5d3a3a'     // Cor de texto escura para contraste
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Importando Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fdf6f5; /* Fundo off-white rosado bem suave */
+            color: #5d3a3a;
+        }
+
+        h1, h2, .script-font {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Efeito de Glitter Original (Radial) com a nova cor */
+        .glitter-bg {
+            background-color: #E0BFB8; /* Cor Rose Gold Solicitada */
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.4) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.3) 1px, transparent 2px),
+                radial-gradient(rgba(255,255,255,.6), rgba(255,255,255,.2) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: glitter 4s linear infinite;
+        }
+
+        @keyframes glitter {
+            0% { background-position: 0 0, 40px 60px, 130px 270px; }
+            100% { background-position: 550px 550px, 390px 410px, 380px 520px; }
+        }
+
+        .photo-frame {
+            box-shadow: 0 0 25px rgba(224, 191, 184, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+            border: 5px solid #fff;
+        }
+
+        .btn-glitter {
+            background: linear-gradient(45deg, #E0BFB8, #b58b83);
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: white;
+        }
+        .btn-glitter:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(181, 139, 131, 0.6);
+        }
+
+        /* Modal de Presentes */
+        #gift-modal { transition: opacity 0.3s ease-in-out; }
+        .hidden-modal { opacity: 0; pointer-events: none; display: none; }
+        .visible-modal { opacity: 1; pointer-events: auto; display: flex; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Seção Hero / Principal -->
+    <header class="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden pb-12">
+        <!-- Fundo Glitter -->
+        <div class="absolute inset-0 glitter-bg z-0"></div>
+        <!-- Leve overlay para garantir leitura do texto branco -->
+        <div class="absolute inset-0 bg-black/10 z-0"></div>
+
+        <!-- Conteúdo Principal -->
+        <div class="relative z-10 text-center px-4 mt-8">
+            <h2 class="text-white text-3xl md:text-5xl mb-2 drop-shadow-md tracking-wide">Venha comemorar os</h2>
+            <h1 class="text-white text-6xl md:text-8xl mb-2 drop-shadow-[0_4px_4px_rgba(0,0,0,0.3)]">31 Anos da Bru!</h1>
+            <h2 class="text-[#fcece9] text-4xl md:text-6xl mb-8 drop-shadow-md font-bold">Vai bru, bru!</h2>
+
+            <!-- Foto -->
+            <div class="mx-auto mb-8 w-64 h-64 md:w-80 md:h-80 rounded-full photo-frame overflow-hidden bg-rosegold-light flex items-center justify-center relative group shadow-2xl">
+                <a href="https://ibb.co/Fqn1dGcG" target="_blank" class="w-full h-full block cursor-default">
+                    <img src="https://i.ibb.co/n8RyKh4h/Whats-App-Image-2026-01-04-at-18-32-42.jpg" 
+                         alt="Foto da Bruna" 
+                         class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                </a>
+            </div>
+
+            <!-- Contagem Regressiva -->
+            <div class="bg-white/20 backdrop-blur-md rounded-2xl p-6 inline-block border border-white/40 shadow-lg">
+                <p class="text-white font-semibold text-lg uppercase tracking-widest">10 de Janeiro de 2026</p>
+                <div id="countdown" class="text-3xl md:text-4xl font-bold text-white mt-2 drop-shadow-sm"></div>
+            </div>
+        </div>
+
+        <!-- Onda na parte inferior -->
+        <div class="absolute bottom-0 w-full overflow-hidden leading-none z-10">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[60px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-[#fdf6f5]"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Seção de Informações -->
+    <main class="max-w-6xl mx-auto px-6 py-12 relative z-20 -mt-10">
+        
+        <!-- Grid de Informações (3 Colunas agora) -->
+        <div class="grid md:grid-cols-3 gap-6 mb-16">
+            
+            <!-- Quando -->
+            <div class="bg-white rounded-3xl shadow-xl p-8 text-center border-t-8 border-rosegold transform hover:-translate-y-2 transition duration-300">
+                <div class="bg-rosegold/20 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-rosegold-dark">
+                    <i data-lucide="calendar-clock" class="w-7 h-7"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2 uppercase tracking-wide">Quando?</h3>
+                <p class="text-rosegold-dark font-bold text-lg">10 de Janeiro</p>
+                <p class="text-gray-500 font-medium">Sábado</p>
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                    <p class="text-2xl font-bold text-rosegold-text">Início às 18h</p>
+                </div>
+            </div>
+
+            <!-- Onde -->
+            <div class="bg-white rounded-3xl shadow-xl p-8 text-center border-t-8 border-rosegold transform hover:-translate-y-2 transition duration-300">
+                <div class="bg-rosegold/20 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-rosegold-dark">
+                    <i data-lucide="map-pin" class="w-7 h-7"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2 uppercase tracking-wide">Onde?</h3>
+                <p class="text-gray-600 font-medium">Rua Professor Luís Eulálio de Bueno Vidigal, 137</p>
+                <p class="text-rosegold-dark text-sm mt-2 font-semibold">Condomínio Boulevard Parque Central</p>
+            </div>
+
+            <!-- Menu -->
+            <div class="bg-white rounded-3xl shadow-xl p-8 text-center border-t-8 border-rosegold transform hover:-translate-y-2 transition duration-300">
+                <div class="bg-rosegold/20 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-rosegold-dark">
+                    <i data-lucide="utensils" class="w-7 h-7"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2 uppercase tracking-wide">O que vamos comer?</h3>
+                <p class="text-gray-600 mb-2">Prepare-se para um jantar delicioso!</p>
+                <div class="mt-2 bg-rosegold/10 py-2 px-4 rounded-lg inline-block">
+                    <p class="text-rosegold-dark font-bold text-lg">Crepe ✨</p>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Doces e salgados</p>
+            </div>
+
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="flex flex-col md:flex-row gap-6 justify-center items-center mb-16">
+            <!-- Botão Lista de Presentes -->
+            <button onclick="toggleGiftPage()" class="btn-glitter px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl w-full md:w-auto flex items-center justify-center gap-3 group">
+                <i data-lucide="gift" class="group-hover:animate-bounce"></i>
+                Sugestões de Presentes
+            </button>
+            
+            <!-- Seção Pix -->
+            <div class="bg-white p-2 pl-6 rounded-full shadow-lg border-2 border-rosegold/30 flex items-center justify-between w-full md:w-auto min-w-[300px]">
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Presenteie via Pix</span>
+                    <span class="text-gray-600 font-mono text-sm font-bold">427.805.298-73</span>
+                </div>
+                <button onclick="copyPix()" id="btn-pix" class="ml-4 bg-gray-100 hover:bg-gray-200 text-gray-600 p-3 rounded-full transition duration-200">
+                    <i data-lucide="copy" class="w-5 h-5"></i>
+                </button>
+                <span id="pix-feedback" class="absolute -mt-12 ml-[240px] bg-black text-white text-xs py-1 px-2 rounded opacity-0 transition-opacity duration-300 pointer-events-none">Copiado!</span>
+            </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white bg-white">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.058348943722!2d-46.77258382375545!3d-23.530410760447784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ceff8bd0f0a5a5%3A0x6b4f7b5a1f0a2e3a!2sR.%20Prof.%20Lu%C3%ADs%20Eul%C3%A1lio%20de%20Bueno%20Vidigal%2C%20137%20-%20Centro%2C%20Osasco%20-%20SP%2C%2006010-140!5e0!3m2!1spt-BR!2sbr!4v1704380000000!5m2!1spt-BR!2sbr" 
+                width="100%" 
+                height="400" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#b58b83] text-white py-10 text-center mt-12">
+        <h2 class="script-font text-4xl mb-2">Bru #31</h2>
+        <p class="text-sm opacity-80">Esperamos você para essa festa linda!</p>
+    </footer>
+
+    <!-- "PÁGINA" DE PRESENTES (Modal Fullscreen) -->
+    <div id="gift-modal" class="fixed inset-0 z-50 bg-[#fdf6f5] hidden-modal flex-col overflow-y-auto">
+        <!-- Header Modal -->
+        <div class="sticky top-0 w-full flex justify-between items-center p-4 bg-white/80 backdrop-blur shadow-sm z-10">
+            <span class="text-rosegold-dark font-bold ml-2">Lista de Desejos</span>
+            <button onclick="toggleGiftPage()" class="text-gray-400 hover:text-rosegold-dark bg-white rounded-full p-2 shadow-sm border transition">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <div class="max-w-4xl mx-auto w-full px-6 py-10 text-center animate-fade-in">
+            <h2 class="script-font text-6xl text-rosegold-dark mb-4">Sugestões</h2>
+            <p class="text-gray-500 mb-12">Para quem quiser presentear, aqui vão algumas dicas do que a Bru ama!</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Categoria 1: Maquiagem -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-rosegold flex items-start gap-4 text-left hover:shadow-lg transition">
+                    <div class="bg-rosegold/10 p-3 rounded-xl text-rosegold-dark shrink-0">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl text-gray-800">Maquiagem</h3>
+                        <p class="text-sm text-gray-500 mt-1 mb-2">Marcas favoritas:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-rosegold/10 text-rosegold-dark px-3 py-1 rounded-full text-sm font-semibold">Bruna Tavares</span>
+                            <span class="bg-rosegold/10 text-rosegold-dark px-3 py-1 rounded-full text-sm font-semibold">Niina Secrets</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoria 2: Calçados -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-rosegold flex items-start gap-4 text-left hover:shadow-lg transition">
+                    <div class="bg-rosegold/10 p-3 rounded-xl text-rosegold-dark shrink-0">
+                        <i data-lucide="footprints" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl text-gray-800">Calçados</h3>
+                        <p class="text-sm text-gray-500 mt-1 mb-2">Numeração:</p>
+                        <span class="bg-rosegold text-white px-4 py-1 rounded-full text-lg font-bold shadow-sm">37</span>
+                    </div>
+                </div>
+
+                <!-- Categoria 3: Roupas -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-rosegold flex items-start gap-4 text-left hover:shadow-lg transition">
+                    <div class="bg-rosegold/10 p-3 rounded-xl text-rosegold-dark shrink-0">
+                        <i data-lucide="shirt" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl text-gray-800">Roupas</h3>
+                        <p class="text-sm text-gray-500 mt-1 mb-2">Tamanhos:</p>
+                        <div class="flex gap-2">
+                            <span class="border border-rosegold text-rosegold-dark px-3 py-1 rounded-lg font-bold">G</span>
+                            <span class="border border-rosegold text-rosegold-dark px-3 py-1 rounded-lg font-bold">42</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoria 4: Beleza -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-rosegold flex items-start gap-4 text-left hover:shadow-lg transition">
+                    <div class="bg-rosegold/10 p-3 rounded-xl text-rosegold-dark shrink-0">
+                        <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl text-gray-800">Beleza & Perfumaria</h3>
+                        <p class="text-sm text-gray-500 mt-1 mb-2">Lojas preferidas:</p>
+                        <ul class="text-rosegold-dark font-medium text-sm space-y-1">
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rosegold"></div>O Boticário</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rosegold"></div>Natura</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="toggleGiftPage()" class="mt-12 px-8 py-3 rounded-full border border-gray-300 text-gray-500 hover:bg-gray-50 hover:text-rosegold-dark transition">
+                Voltar para o convite
+            </button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleGiftPage() {
+            const modal = document.getElementById('gift-modal');
+            const body = document.body;
+            if (modal.classList.contains('hidden-modal')) {
+                modal.classList.remove('hidden-modal');
+                modal.classList.add('visible-modal');
+                body.style.overflow = 'hidden';
+            } else {
+                modal.classList.remove('visible-modal');
+                modal.classList.add('hidden-modal');
+                body.style.overflow = 'auto';
+            }
+        }
+
+        function copyPix() {
+            const pixKey = "427.805.298-73";
+            const feedback = document.getElementById('pix-feedback');
+            
+            navigator.clipboard.writeText(pixKey).then(() => {
+                feedback.style.opacity = '1';
+                setTimeout(() => { feedback.style.opacity = '0'; }, 2000);
+            }).catch(() => {
+                 // Fallback simples
+                const el = document.createElement('textarea');
+                el.value = pixKey;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                feedback.style.opacity = '1';
+                setTimeout(() => { feedback.style.opacity = '0'; }, 2000);
+            });
+        }
+
+        // Contagem Regressiva
+        const targetDate = new Date("January 10, 2026 18:00:00").getTime(); // Ajustado para 18h
+
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "É hoje! 🎉";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            document.getElementById("countdown").innerHTML = 
+                `${days} dias e ${hours}h`;
+        }, 1000);
+    </script>
+</body>
+</html>
